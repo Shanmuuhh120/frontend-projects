@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz with Login</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffeb3b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+            overflow: hidden;
+        }
+
+        /* Login Container */
+        .login-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1s ease;
+            width: 300px;
+        }
+
+        /* Heading Styles */
+        h2 {
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Input Fields */
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        /* Login Button */
+        .login-btn {
+            background-color: #4caf50;
+            color: white;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            display: none;
+            width: 90%;
+            max-width: 700px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        /* Option Buttons */
+        .option {
+            background-color: #4caf50;
+            color: white;
+            padding: 15px 25px;
+            margin: 10px 0;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .option:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .option:active {
+            transform: scale(0.95);
+        }
+
+        /* Feedback Styles */
+        .feedback {
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .feedback.correct {
+            color: #4caf50;
+        }
+
+        .feedback.incorrect {
+            color: #f44336;
+        }
+
+        /* Next Button */
+        .next-button {
+            background-color: #ffa500;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .next-button:hover {
+            background-color: #ff8c00;
+        }
+
+        .next-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Score Container */
+        .score-container {
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Form -->
+    <div class="login-container" id="login-container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Enter Username" required>
+        <input type="password" id="password" placeholder="Enter Password" required>
+        <button class="login-btn" onclick="login()">Login</button>
+    </div>
+
+    <!-- Quiz Container -->
+    <div class="quiz-container" id="quiz-container">
+        <div id="quiz" class="quiz">
+            <div id="question-container">
+                <h2 id="question">What is the capital of Japan?</h2>
+            </div>
+            <div class="options">
+                <button class="option" onclick="checkAnswer(0)">Seoul</button>
+                <button class="option" onclick="checkAnswer(1)">Tokyo</button>
+                <button class="option" onclick="checkAnswer(2)">Beijing</button>
+                <button class="option" onclick="checkAnswer(3)">Bangkok</button>
+            </div>
+            <div id="feedback" class="feedback"></div>
+            <button id="next-button" class="next-button" onclick="nextQuestion()" style="display: none;">Next</button>
+        </div>
+        <div id="score-container" class="score-container" style="display: none;">
+            <h2>Your Score</h2>
+            <p id="score">0</p>
+            <button onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // Login Function
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username === "user" && password === "password") {
+                // Hide login and show quiz
+                document.getElementById("login-container").style.display = 'none';
+                document.getElementById("quiz-container").style.display = 'block';
+                loadQuestion();
+            } else {
+                alert("Invalid login credentials!");
+            }
+        }
+
+        // Quiz Questions and Answers
+        const quizData = [
+            {
+                question: "What is the capital of Japan?",
+                options: ["Seoul", "Tokyo", "Beijing", "Bangkok"],
+                correctAnswer: 1
+            },
+            {
+                question: "What is the largest planet in our solar system?",
+                options: ["Earth", "Mars", "Jupiter", "Saturn"],
+                correctAnswer: 2
+            },
+            {
+                question: "Which programming language is used for web development?",
+                options: ["Python", "Java", "JavaScript", "C++"],
+                correctAnswer: 2
+            },
+            {
+                question: "What is the smallest country in the world?",
+                options: ["Vatican City", "Monaco", "San Marino", "Liechtenstein"],
+                correctAnswer: 0
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        // Display Question and Options
+        function loadQuestion() {
+            const currentQuestion = quizData[currentQuestionIndex];
+            document.getElementById("question").textContent = currentQuestion.question;
+            const options = document.querySelectorAll(".option");
+            options.forEach((btn, index) => {
+                btn.textContent = currentQuestion.options[index];
+            });
+            document.getElementById("feedback").textContent = '';
+            document.getElementById("next-button").style.display = 'none';
+        }
+
+        // Check Answer
+        function checkAnswer(selectedOptionIndex) {
+            const correctAnswerIndex = quizData[currentQuestionIndex].correctAnswer;
+            const feedback = document.getElementById("feedback");
+
+            if (selectedOptionIndex === correctAnswerIndex) {
+                feedback.textContent = "Correct!";
+                feedback.classList.remove('incorrect');
+                feedback.classList.add('correct');
+                score++;
+            } else {
+                feedback.textContent = "Incorrect!";
+                feedback.classList.remove('correct');
+                feedback.classList.add('incorrect');
+            }
+            feedback.style.opacity = 1;
+            document.getElementById("next-button").style.display = 'block';
+        }
+
+        // Move to Next Question
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showScore();
+            }
+        }
+
+        // Show Score at the End
+        function showScore() {
+            document.getElementById("quiz").style.display = 'none';
+            document.getElementById("score-container").style.display = 'block';
+            document.getElementById("score").textContent = `You scored ${score} out of ${quizData.length}`;
+        }
+
+        // Restart Quiz
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById("quiz").style.display = 'block';
+            document.getElementById("score-container").style.display = 'none';
+            loadQuestion();
+        }
+    </script>
+
+</body>
+</html>

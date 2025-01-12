@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Blog - Delicious Recipes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eaf1f7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #006f6b;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 2rem;
+            flex: 1;
+        }
+        .dish {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 1rem;
+            padding: 1.5rem;
+            width: 300px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dish:hover {
+            background-color: #d3e6e4;
+        }
+        .dish h3 {
+            margin-top: 1rem;
+            color: #006f6b;
+        }
+        .dish p {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        footer {
+            background-color: #006f6b;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        .recipe {
+            display: none;
+            margin-top: 1.5rem;
+            background-color: #f7fafb;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Delicious Recipes - Food Blog</h1>
+        <p>Welcome to my collection of 10 amazing dishes with their recipes!</p>
+    </header>
+
+    <div class="container">
+        <!-- Dish 1 -->
+        <div class="dish" onclick="toggleRecipe('dish1')">
+            <h3>Spaghetti Bolognese</h3>
+            <p>Rich, hearty spaghetti topped with a delicious tomato-based meat sauce.</p>
+            <div class="recipe" id="dish1">
+                <h4>Recipe</h4>
+                <ul>
+                    <li><strong>Ingredients:</strong> 500g ground beef, 1 onion, 2 garlic cloves, 1 can crushed tomatoes, olive oil, salt, pepper, and pasta.</li>
+                    <li><strong>Instructions:</strong> Cook beef in a pan, add onions and garlic until softened. Add crushed tomatoes and spices. Simmer for 30 minutes. Serve over spaghetti.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dish 2 -->
+        <div class="dish" onclick="toggleRecipe('dish2')">
+            <h3>Chicken Curry</h3>
+            <p>A flavorful chicken curry cooked with aromatic spices.</p>
+            <div class="recipe" id="dish2">
+                <h4>Recipe</h4>
+                <ul>
+                    <li><strong>Ingredients:</strong> Chicken breast, onions, garlic, ginger, curry powder, coconut milk, tomatoes, cilantro.</li>
+                    <li><strong>Instructions:</strong> Sauté onions, garlic, and ginger. Add curry powder, then chicken. Pour in coconut milk and tomatoes, simmer for 30 minutes. Garnish with cilantro.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dish 3 -->
+        <div class="dish" onclick="toggleRecipe('dish3')">
+            <h3>Vegetable Stir Fry</h3>
+            <p>A quick and healthy stir fry with fresh vegetables.</p>
+            <div class="recipe" id="dish3">
+                <h4>Recipe</h4>
+                <ul>
+                    <li><strong>Ingredients:</strong> Broccoli, bell peppers, carrots, soy sauce, sesame oil, garlic, ginger, rice.</li>
+                    <li><strong>Instructions:</strong> Stir-fry vegetables in a pan with sesame oil, garlic, and ginger. Add soy sauce and serve over cooked rice.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dish 4 -->
+        <div class="dish" onclick="toggleRecipe('dish4')">
+            <h3>Grilled Salmon</h3>
+            <p>Perfectly grilled salmon served with a side of veggies.</p>
+            <div class="recipe" id="dish4">
+                <h4>Recipe</h4>
+                <ul>
+                    <li><strong>Ingredients:</strong> Salmon fillets, olive oil, lemon, garlic, herbs of choice (e.g., thyme, dill), salt, pepper.</li>
+                    <li><strong>Instructions:</strong> Brush salmon with olive oil, lemon juice, and seasoning. Grill until cooked through, about 4-5 minutes per side. Serve with vegetables.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dish 5 -->
+        <div class="dish" onclick="toggleRecipe('dish5')">
+            <h3>Chocolate Cake</h3>
+            <p>Decadent and moist chocolate cake, a sweet treat for all!</p>
+            <div class="recipe" id="dish5">
+                <h4>Recipe</h4>
+                <ul>
+                    <li><strong>Ingredients:</strong> Cocoa powder, flour, sugar, eggs, butter, baking powder, vanilla extract, milk.</li>
+                    <li><strong>Instructions:</strong> Mix dry ingredients, add wet ingredients. Bake at 350°F (175°C) for 30-35 minutes. Let cool, frost with chocolate frosting.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dish 6 -->
+        <div class="dish" onclick="toggleRecipe('dish6')">
+            <h3>Caesar Salad</h3>
+            <p>Crisp lettuce, parmesan cheese, and creamy Caesar dressing.</p>
+            <div class="recipe" id="dish6">
+                <h4>Recipe</h4>
+                <ul>
+                    <li><strong>Ingredients:</strong> Romaine lettuce, croutons, Caesar dressing, parmesan cheese.</li>
+                    <li><strong>Instructions:</strong> Toss lettuce with Caesar dressing, sprinkle with parmesan cheese and croutons. Serve immediately.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dish 7 -->
+        <div class="dish" onclick="toggleRecipe('dish7')">
+            <h3>Pizza Margherita</h3>
+            <p>Classic pizza with fresh basil, mozzarella, and tomato sauce.</p>
+            <div class="recipe" id="dish7">
+                <h4>Recipe</h4>
+                <ul>
+                    <li><strong>Ingredients:</strong> Pizza dough, mozzarella, tomatoes, basil, olive oil, garlic, salt.</li>
+                    <li><strong>Instructions:</strong> Preheat oven to 475°F (245°C). Stretch dough, top with mozzarella, tomatoes, and garlic. Bake for 10 minutes, garnish with basil.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dish 8 -->
+        <div class="dish" onclick="toggleRecipe('dish8')">
+            <h3>Beef Tacos</h3>
+            <p>Flavorful beef tacos with fresh toppings and salsa.</p>
+            <div class="recipe" id="dish8">
+                <h4>Recipe</h4>
+                <ul>
+                    <li><strong>Ingredients:</strong> Ground beef, taco shells, lettuce, tomatoes, onions, cheese, salsa.</li>
+                    <li><strong>Instructions:</strong> Cook beef with seasoning, fill taco shells with beef and toppings, serve with salsa.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dish 9 -->
+        <div class="dish" onclick="toggleRecipe('dish9')">
+            <h3>Lasagna</h3>
+            <p>Layers of pasta, cheese, and meat sauce for the perfect comfort food.</p>
+            <div class="recipe" id="dish9">
+                <h4>Recipe</h4>
+                <ul>
+                    <li><strong>Ingredients:</strong> Ground beef, lasagna noodles, ricotta cheese, marinara sauce, mozzarella, parmesan.</li>
+                    <li><strong>Instructions:</strong> Layer noodles, meat sauce, and cheese in a baking dish. Bake at 375°F (190°C) for 45 minutes.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dish 10 -->
+        <div class="dish" onclick="toggleRecipe('dish10')">
+            <h3>Fruit Smoothie</h3>
+            <p>Refreshing and healthy smoothie made with fresh fruits.</p>
+            <div class="recipe" id="dish10">
+                <h4>Recipe</h4>
+                <ul>
+                    <li><strong>Ingredients:</strong> Bananas, strawberries, yogurt, honey, almond milk.</li>
+                    <li><strong>Instructions:</strong> Blend all ingredients until smooth. Serve immediately.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Delicious Recipes - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function toggleRecipe(dishId) {
+            var recipeElement = document.getElementById(dishId);
+            if (recipeElement.style.display === "none") {
+                recipeElement.style.display = "block";
+            } else {
+                recipeElement.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
